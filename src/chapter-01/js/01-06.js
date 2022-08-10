@@ -2,15 +2,26 @@ function init() {
 
     console.log("Using Three js version:" + THREE.REVISION)
 
+    window.addEventListener('resize', onResize,false)
+
+    var camera;
+    var scene;
+    var renderer;
+
     var stats = initStats();
 
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
     var renderer = new THREE.WebGLRenderer();
 
     renderer.setClearColor(new THREE.Color(0x000000));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
+
+    // initialize the trackball controls and the clock which is needed
+    var trackballControls = initTrackballControls(camera, renderer);
+    var clock = new THREE.Clock();
 
     var planeGeometry = new THREE.PlaneGeometry(60,20, 1, 1);
     var planeMaterial = new THREE.MeshLambertMaterial({
@@ -33,7 +44,7 @@ function init() {
     cube.castShadow = true;
 
     cube.position.x = -4;
-    cube.position.y = 4;
+    cube.position.y = 3;
     cube.position.z = 0;
     scene.add(cube);
 
@@ -56,43 +67,46 @@ function init() {
     var spotLight = new THREE.SpotLight(0xFFFFFF);
     spotLight.position.set(-10,20,-5);
     spotLight.castShadow = true;
-    // spotLight.shadow.mapSize = new THREE.Vector2(1024, 1024);
-    // spotLight.shadow.camera.far = 130;
-    // spotLight.shadow.camera.near = 40;
+    spotLight.shadow.mapSize.set(1024,1024);
     scene.add(spotLight);
-
-    // const dirLight = new THREE.DirectionalLight(0xffffff);
-    // dirLight.position.set(-40,40,-15);
-    // dirLight.castShadow = true;
-    // dirLight.shadow.camera.top = 2;
-    // dirLight.shadow.camera.bottom = -2;
-    // dirLight.shadow.camera.left = -2;
-    // dirLight.shadow.camera.right = 2;
-    // dirLight.shadow.camera.near = 0.1
-    // dirLight.shadow.camera.far = 40;
-    // scene.add(dirLight)
-
-    // const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
-    // hemiLight.position.set(0,20,0);
 
     document.getElementById("webgl-output").appendChild(renderer.domElement);
 
     var step = 0;
-    renderScene();
 
-    function renderScene() {
+    var controls = new function () {
+        this.rotationSpeed = 0.02;
+        this.bouncingSpeed = 0.03;
+    }
 
+    var gui = new dat.GUI();
+    gui.add(controls, 'rotationSpeed', 0, 0.5);
+    gui.add(controls, 'bouncingSpeed', 0, 0.5);
+
+    var trackballControls = initTrackballControls(camera, renderer);
+    var clock = new THREE.Clock();
+
+    render();
+
+    function render() {
+        trackballControls.update(clock.getDelta())
         stats.update();
 
-        cube.rotation.x += 0.02;
-        cube.rotation.y += 0.02;
-        cube.rotation.z += 0.02;
+        cube.rotation.x += controls.rotationSpeed;
+        cube.rotation.y += controls.rotationSpeed;
+        cube.rotation.z += controls.rotationSpeed;
 
-        step += 0.04;
+        step += controls.bouncingSpeed;
         sphere.position.x = 20 + (10 * (Math.cos(step)));
         sphere.position.y = 2 + (10 * Math.abs(Math.sin(step)));
 
-        requestAnimationFrame(renderScene)
+        requestAnimationFrame(render)
         renderer.render(scene, camera);
+    }
+
+    function onResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
     }
 }

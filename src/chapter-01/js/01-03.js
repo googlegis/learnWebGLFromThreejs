@@ -49,16 +49,31 @@ function init() {
     camera.position.set(-30, 40, 30);
     camera.lookAt(scene.position);
 
-    var spotLight = new THREE.SpotLight(0xFFFFFF);
-    spotLight.position.set(-40,40,-15);
-    spotLight.castShadow = true;
-    spotLight.shadow.mapSize = new THREE.Vector2(1024, 1024);
-    spotLight.shadow.camera.far = 130;
-    spotLight.shadow.camera.near = 40;
-    scene.add(spotLight);
+    // var spotLight = new THREE.SpotLight(0xFFFFFF);
+    // spotLight.position.set(-40,40,-15);
+    // spotLight.castShadow = true;
+    // spotLight.shadow.mapSize = new THREE.Vector2(1024, 1024);
+    // spotLight.shadow.camera.far = 130;
+    // spotLight.shadow.camera.near = 40;
+    // scene.add(spotLight);
+    //
+    // var ambienLight = new THREE.AmbientLight(0x353535);
+    // scene.add(ambienLight);
 
-    var ambienLight = new THREE.AmbientLight(0x353535);
-    scene.add(ambienLight);
+    const dirLight = new THREE.DirectionalLight(0xffffff);
+    dirLight.position.set(-40,40,-15);
+    dirLight.castShadow = true;
+    dirLight.shadow.camera.top = 2;
+    dirLight.shadow.camera.bottom = -2;
+    dirLight.shadow.camera.left = -2;
+    dirLight.shadow.camera.right = 2;
+    dirLight.shadow.camera.near = 0.1
+    dirLight.shadow.camera.far = 40;
+    scene.add(dirLight)
+
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
+    hemiLight.position.set(0,20,0);
+    //scene.add(hemiLight);
 
     document.getElementById("webgl-output").appendChild(renderer.domElement);
     renderer.render(scene, camera);

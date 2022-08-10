@@ -906,7 +906,6 @@
 			this.twin = edge;
 			edge.twin = this;
 			return this;
-
 		}
 
 	} // A vertex as a double linked list node.
