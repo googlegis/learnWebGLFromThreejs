@@ -75,7 +75,6 @@ function init() {
 
     geom.setAttribute('position',new THREE.BufferAttribute(vertices,3));
 
-
     var materials = [
         new THREE.MeshLambertMaterial({color: 0x000000, wireframe: true}),
         new THREE.MeshLambertMaterial({opacity: 0.6, color: 0x44ff44, transparent: true})

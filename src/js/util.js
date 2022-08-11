@@ -18,7 +18,7 @@ function initStats(type) {
 function initRenderer(additionalProperties) {
 
     var props = (typeof additionalProperties !== 'undefined' && additionalProperties) ? additionalProperties : {};
-    var render = new THREE.WebGLRenderer(props);
+    var renderer = new THREE.WebGLRenderer(props);
     renderer.shadowMap.enable = true;
     renderer.shadowMapSoft = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
