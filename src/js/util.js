@@ -381,17 +381,17 @@ function addBasicMaterialSettings(gui, controls, material, name) {
     folder.add(controls.material, 'name');
     folder.add(controls.material, 'opacity', 0, 1, 0.01);
     folder.add(controls.material, 'transparent');
-    folder.add(controls.material, 'overdraw', 0, 1, 0.01);
+    //folder.add(controls.material, 'overdraw', 0, 1, 0.01);
     folder.add(controls.material, 'visible');
     folder.add(controls.material, 'side', {FrontSide: 0, BackSide: 1, BothSides: 2}).onChange(function (side) {
         controls.material.side = parseInt(side)
     });
 
     folder.add(controls.material, 'colorWrite');
-    folder.add(controls.material, 'flatShading').onChange(function(shading) {
-        controls.material.flatShading = shading;
-        controls.material.needsUpdate = true;
-    });
+    // folder.add(controls.material, 'flatShading').onChange(function(shading) {
+    //     controls.material.flatShading = shading;
+    //     controls.material.needsUpdate = true;
+    // });
     folder.add(controls.material, 'premultipliedAlpha');
     folder.add(controls.material, 'dithering');
     folder.add(controls.material, 'shadowSide', {FrontSide: 0, BackSide: 1, BothSides: 2});
