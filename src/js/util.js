@@ -398,7 +398,7 @@ function addBasicMaterialSettings(gui, controls, material, name) {
     folder.add(controls.material, 'vertexColors', {NoColors: THREE.NoColors, FaceColors: THREE.FaceColors, VertexColors: THREE.VertexColors}).onChange(function (vertexColors) {
         material.vertexColors = parseInt(vertexColors);
     });
-    folder.add(controls.material, 'fog');
+    //folder.add(controls.material, 'fog');
 
     return folder;
 }

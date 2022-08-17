@@ -40,7 +40,7 @@ function init() {
     const step = 0;
 
 
-    var vertices = new Float32Array([
+    var vertices = [
         1, 3, 1,
         1, 3, -1,
         1, -1, 1,
@@ -49,41 +49,34 @@ function init() {
         -1, 3, 1,
         -1, -1, -1,
         -1, -1, 1
-    ]);
+    ];
 
-    // var faces = [
-    //     new THREE.Face3(0, 2, 1),
-    //     new THREE.Face3(2, 3, 1),
-    //     new THREE.Face3(4, 6, 5),
-    //     new THREE.Face3(6, 7, 5),
-    //     new THREE.Face3(4, 5, 1),
-    //     new THREE.Face3(5, 0, 1),
-    //     new THREE.Face3(7, 6, 2),
-    //     new THREE.Face3(6, 3, 2),
-    //     new THREE.Face3(5, 7, 0),
-    //     new THREE.Face3(7, 2, 0),
-    //     new THREE.Face3(1, 3, 4),
-    //     new THREE.Face3(3, 6, 4),
-    // ];
-    //
-    // var geom = new THREE.Geometry();
-    // geom.vertices = vertices;
-    // geom.faces = faces;
-    // geom.computeFaceNormals();
+    var indices = [
+        0, 2, 1,
+        2, 3, 1,
+        4, 6, 5,
+        6, 7, 5,
+        4, 5, 1,
+        5, 0, 1,
+        7, 6, 2,
+        6, 3, 2,
+        5, 7, 0,
+        7, 2, 0,
+        1, 3, 4,
+        3, 6, 4
+    ];
 
-    const geom = new THREE.BufferGeometry();
-
-    geom.setAttribute('position',new THREE.BufferAttribute(vertices,3));
+    // 使用 PolyhedronGeometry 替换了 Geometry ， r125版本已经弃用 Geometry.
+    var polyhedronGeometry = new THREE.PolyhedronGeometry(vertices,indices,3,2);
 
     var materials = [
         new THREE.MeshLambertMaterial({color: 0x000000, wireframe: true}),
         new THREE.MeshLambertMaterial({opacity: 0.6, color: 0x44ff44, transparent: true})
     ];
 
-    var mesh = THREE.SceneUtils.createMultiMaterialObject(geom, materials);
-    mesh.castShadow = true;
+    var mesh = THREE.SceneUtils.createMultiMaterialObject(polyhedronGeometry, materials);
     mesh.children.forEach(function (e) {
-        e.castShadow = true
+        e.castShadow = true;
     });
     scene.add(mesh);
 
