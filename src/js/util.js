@@ -106,7 +106,7 @@ function initTrackballControls(camera, renderer) {
     return trackballControls;
 }
 
-var appleMeshStandardMaterial = function(geometry, material) {
+var applyMeshStandardMaterial = function(geometry, material) {
     if(!material || material.type !== "MeshStandardMaterial") {
         var material = new THREE.MeshStandardMaterial({color:0xff0000});
         material.side = THREE.DoubleSide;
