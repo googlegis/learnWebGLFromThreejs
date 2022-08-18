@@ -94,7 +94,7 @@ function init() {
         gopher.scale.x = 4;
         gopher.scale.y = 5;
         gopher.scale.z = 4;
-        gui.add(controls, 'selectMesh', ["cube", "sphere", "plane", "gopher"]).onChange(function (e) {
+        gui.add(controls, 'selectedMesh', ["cube", "sphere", "plane", "gopher"]).onChange(function (e) {
             scene.remove(plane);
             scene.remove(cube);
             scene.remove(sphere);

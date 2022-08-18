@@ -29,9 +29,8 @@ function init() {
     var planeGeometry = new THREE.PlaneGeometry(14, 14, 4, 4);
 
     var meshMaterial = new THREE.MeshBasicMaterial({
-        color: 0x7777ff,
-        name: 'Basic Material',
-        flatShading: true
+        color: 0xffff00,
+        name: 'Basic Material'
     });
 
     var sphere = new THREE.Mesh(sphereGeometry, meshMaterial);

@@ -478,7 +478,8 @@ function guiRemoveFolder(gui, folder) {
  * @param material material for the meshes
  */
 function addMeshSelection(gui, controls, material, scene) {
-    var sphereGeometry = new THREE.SphereGeometry(10, 20, 20);
+
+    var sphereGeometry = new THREE.SphereGeometry(10, 32, 16);
     var cubeGeometry = new THREE.BoxGeometry(16, 16, 15);
     var planeGeometry = new THREE.PlaneGeometry(14, 14, 4, 4);
 
@@ -545,7 +546,7 @@ function loadGopher(material) {
             mesh = loadedMesh;
             if (material) {
                 // material is defined, so overwrite the default material.
-                computeNormalsGroup(mesh);
+                // computeNormalsGroup(mesh);
                 setMaterialGroup(material, mesh);
             }
             resolve(mesh);
@@ -564,7 +565,9 @@ function setMaterialGroup(material, group) {
 }
 
 function computeNormalsGroup(group) {
+
     if (group instanceof THREE.Mesh) {
+
         var tempGeom = new THREE.Geometry();
         tempGeom.fromBufferGeometry(group.geometry)
         tempGeom.computeFaceNormals();
