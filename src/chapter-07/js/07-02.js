@@ -7,7 +7,6 @@ function init() {
     let clock = new THREE.Clock();
     var trackballControls = initTrackballControls(camera, renderer);
 
-
     camera.position.x = 0;
     camera.position.y = 0;
     camera.position.z = 150;
@@ -22,20 +21,28 @@ function init() {
     render();
 
     function createPoints() {
-        var geom = new THREE.Geometry();
+        var geom = new THREE.BufferGeometry();
+        var vertices = [];
+        var colors = [];
+
         var material = new THREE.PointsMaterial({
             size: 2,
             vertexColors: true,
             color: 0xffffff
         });
 
-        for (var x = -15; x < 15; x++) {
-            for (var y = -10; y < 10; y++) {
-                var particle = new THREE.Vector3(x * 4, y * 4, 0);
-                geom.vertices.push(particle);
-                geom.colors.push(new THREE.Color(Math.random() * 0xffffff));
+        for (let x = -15; x < 15; x++) {
+            for (let y = -10; y < 10; y++) {
+                vertices.push(x*4, y*4, 0);
+                let color = new THREE.Color(Math.random() * 0xffffff);
+                colors.push(color.r);
+                colors.push(color.g);
+                colors.push(color.b);
             }
         }
+
+        geom.setAttribute("position", new THREE.Float32BufferAttribute(vertices,3));
+        geom.setAttribute('color', new THREE.Float32BufferAttribute(colors,3));
 
         var cloud = new THREE.Points(geom, material);
         scene.add(cloud);

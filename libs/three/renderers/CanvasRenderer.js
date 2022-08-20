@@ -39,7 +39,7 @@ THREE.CanvasRenderer = function ( parameters ) {
 
 	parameters = parameters || {};
 
-	var _this = this,
+		var _this = this,
 		_renderData, _elements, _lights,
 		_projector = new THREE.Projector(),
 
